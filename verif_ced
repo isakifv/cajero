@@ -1,0 +1,24 @@
+//Verifica la existencia de un numero de cedula en la base de datos de los usuarios. Da positivo si al cedula ya fue registrada y negativo sino
+
+Function verif_ced(ced:Integer; list_us:usuarios): Boolean;
+Var
+  i: Integer;
+  b: Boolean;
+Begin
+  i := 1;
+  b := False;
+  If (ced<>0) Then
+    Begin
+      Repeat
+        If (ced=list_us[i].cedula) Then
+          Begin
+            b := True;
+            verif_ced := b;
+            Exit;
+          End;
+        i := i+1;
+      Until (i=max);
+    End;
+  verif_ced := b;
+End;
+
