@@ -1,0 +1,18 @@
+//Esta funcion da un vaor booleano como resultado. Verdadero si el archivo existe y falso si no. El argumento es el nombre del archivo que se busca verificar
+
+Function fileExist (nombre:String): Boolean;
+Var
+  f: Text;
+Begin
+  Assign(f,nombre);
+ {$I-}
+  Reset(f);
+ {$I+}
+  If (Ioresult=0) Then
+    Begin
+      Close(f);
+      FileExist := True;
+    End
+  Else
+    FileExist := False;
+End;      
