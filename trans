@@ -1,0 +1,48 @@
+//Modulo encargado de las transferencias
+
+Procedure trans(ced:Integer; Var list_us:usuarios; posc:Integer);
+Var
+  posc2: Integer;
+  valid: Boolean;
+  valor: Integer;
+  movimiento: mov;
+  ced2: Integer;
+  x: String;
+Begin
+  If (list_us[posc].saldo<>0)Then
+    Begin
+      Writeln('Introduzca la cédula de la persona a la que quiere transferir los fondos.');
+      Repeat
+        Readln(ced2);
+        If (verif_ced(ced2, list_us)=False)Then Writeln(
+
+                                                    'Valor invalido,introduzca una cédula válida.'
+          );
+      Until (verif_ced(ced2, list_us)=True);
+      posc2 := ob_posc(ced2, list_us);
+      Writeln('Cuenta a transferir: ',list_us[posc2].nombre,' ', list_us[posc2].apellido,'.' );
+      Writeln('Introduzca el valor de su transferencia.');
+      Writeln('Saldo de la cuenta:',list_us[posc].saldo:0:2,'Bs.f');
+      Repeat
+        Readln(valor);
+        If (valor>list_us[posc].saldo)Then Writeln(
+
+                       'Valor invalido, tiene que ser mayor a 0 y menor o igual que su saldo total.'
+          );
+      Until ((valor>0) And (valor<=list_us[posc].saldo));
+      movimiento.tipo := 'Transferencia';
+      movimiento.valor := valor;
+      movimiento.receptor := ced2;
+      list_us[posc].cant_mov := (list_us[posc].cant_mov + 1);
+      list_us[posc].movimientos[list_us[posc].cant_mov] := movimiento;
+      list_us[posc].saldo := list_us[posc].saldo - valor;
+      list_us[posc2].saldo := list_us[posc2].saldo + valor;
+      Writeln('Transferencia realizada exitosamente.');
+      Writeln('Saldo de la cuenta: ',list_us[posc].saldo:0:2,'Bs.f');
+    End
+  Else
+    Begin
+      Writeln('La cuenta seleccionad no tiene saldo alguno para ser retirado o transferido.');
+      Exit;
+    End;
+End;
