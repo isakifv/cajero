@@ -1,0 +1,23 @@
+//Es el módulo encargado de los depositos
+
+Procedure dep (ced:Integer; Var list_us:usuarios; posc:Integer);
+Var
+  valid: Boolean;
+  valor: Integer;
+  movimiento: mov;
+  m: String;
+Begin
+  Writeln('Introduzca el valor de su deposito');
+  Writeln('Saldo de la cuenta:',list_us[posc].saldo:0:2,'Bs.f');
+  Repeat
+    Readln(valor);
+    If (valor<0)Then Writeln('Valor invalido, tiene que ser mayor a 0');
+  Until (valor>0);
+  movimiento.tipo := 'Deposito';
+  movimiento.valor := valor;
+  list_us[posc].cant_mov := (list_us[posc].cant_mov + 1);
+  list_us[posc].movimientos[list_us[posc].cant_mov] := movimiento;
+  list_us[posc].saldo := list_us[posc].saldo + valor;
+  Writeln('Deposito realizado exitosamente.');
+  Writeln('Saldo de la cuenta:',list_us[posc].saldo );
+End;
