@@ -1,0 +1,15 @@
+//Devuelve la posición de un usuario en el arreglo de la base de datos usando su cedula y la base de datos como argumentos
+
+Function ob_posc(ced:Integer; list_us:usuarios): Integer;
+Var
+  i: Integer;
+Begin
+  Repeat
+    If (list_us[i].cedula=ced) Then
+      Begin
+        ob_posc := i;
+        Exit;
+      End;
+    i := i+1;
+  Until (i=max);
+End;
