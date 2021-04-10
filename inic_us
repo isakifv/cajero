@@ -1,0 +1,33 @@
+//modulo encargado de iniciar sesión en el cajero
+
+Procedure inic_us(Var list_us:usuarios);
+Var
+  ced: Integer;
+  pass: String;
+  posc: Integer;
+Begin
+  Writeln('Porfavor introduzca su cédula:');
+  Readln(ced);
+  If (verif_ced(ced, list_us)=True)Then
+    Begin
+      posc := ob_posc(ced, list_us);
+      Writeln('Usuario: ',list_us[posc].nombre,', ',list_us[posc].apellido);
+      Writeln('Cédula válida, introduzca su contraseña.');
+      Repeat
+        Readln(pass);
+        If (pass=list_us[posc].password)Then
+          Begin
+            menu_op(ced, list_us, posc);
+            Exit;
+          End
+        Else
+          Writeln('Contraseña incorrecta.');
+      Until (pass=list_us[posc].password);
+    End
+  Else
+    Begin
+      Writeln('Cédula inválida, porfavor registrarse o introducir una cédula válida.');
+      Readkey;
+      Exit;
+    End;
+End;
