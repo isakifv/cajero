@@ -1,0 +1,42 @@
+//Es el modulo encargado de registrar un usuario nuevo en la base de datos
+
+Procedure reg_us(Var list_us:usuarios);
+Var
+  ced,i,j: Integer;
+  cond: Boolean;
+Begin
+  Writeln('Sistema de registro de usuario.');
+  Repeat
+    Writeln('Introduzca su cédula:');
+    Writeln('Introduzca 0 para cancelar el registro.');
+    Readln(ced);
+    cond := verif_ced(ced, list_us);
+    If ((cond=True)Or((ced<1000000)Or(ced>99999999)))Then
+      Begin
+        Writeln('Su cédula ya existe en el sistema, porfavor iniciar sesión.');
+      End;
+  Until (cond=False)Or(ced=0);
+  If (cond=False)And(Not(((ced<1000000)Or(ced>99999999)))) Then
+    Begin
+      i := 0;
+      Repeat
+        i := i+1;
+      Until (list_us[i].cedula=0);
+      list_us[i].cedula := ced;
+      Writeln('Registro de datos del ciudadano:', ced);
+      Writeln('Introduzca su nombre:');
+      Readln(list_us[i].nombre);
+      Writeln('Introduzca su apellido:');
+      Readln(list_us[i].apellido);
+      list_us[i].posc := i;
+      Writeln('Introduzca la clave que desea tener. Puede utilizar letras, números y simbolos.');
+      Readln(list_us[i].password);
+      Writeln('Nombre:',list_us[i].nombre, '      |      Apellido:', list_us[i].apellido);
+      Writeln('Cédula: ', list_us[i].cedula,'      |      Contraseña: ', list_us[i].password);
+      Writeln('Saldo:', list_us[i].saldo:0:2,'Bs.f',
+
+'. Para tener un saldo distinto de cero, realice su primer deposito o reciba su primera transferencia'
+      );
+      Readkey;
+    End;
+End;
