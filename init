@@ -1,0 +1,12 @@
+//Inicializa los valores de cédula del arreglo para evitar problemas con valores no inicializados
+
+Procedure init(list_us:usuarios);
+Var
+  i: Integer;
+Begin
+  i := 1;
+  Repeat
+    list_us[i].cedula := 0;
+    i := i+1;
+  Until (i=max);
+End;
