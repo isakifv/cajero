@@ -1,0 +1,35 @@
+//Es el menu de opciones que se muestra despues de iniciar sesion en el programa
+
+Procedure menu_op(ced:Integer;Var list_us:usuarios;posc:Integer);
+Var
+  op: Integer;
+  movs: file Of list_mov;
+Begin
+  Assign(movs,'transacciones.txt');
+  Rewrite(movs);
+  Repeat
+    Writeln('Bienvenido Usuario: ', list_us[posc].nombre,' ', list_us[posc].apellido,'.' );
+    Writeln('Saldo: ', list_us[posc].saldo:0:2,'Bs.f' );
+    Writeln('Menu de operaciones.');
+    Writeln('1-. Depositar efectivo.');
+    Writeln('2-. Retirar efectivo.');
+    Writeln('3-. Transferir monto.');
+    Writeln('4-. Ver movimientos.');
+    Writeln('5-. Salir.');
+    Readln(op);
+    Clrscr;
+    Case op Of
+      1: dep(ced, list_us, posc);
+      2: ret(ced, list_us,posc);
+      3: trans(ced, list_us,posc);
+      4: transacciones(ced, list_us,posc);
+      5:
+         Begin
+           Writeln('Saliendo al menu principal.');
+           Exit;
+         End;
+      Else
+        Writeln('Valor inválido. Esa opción no existe.');
+    End;
+  Until (op=4);
+End;
