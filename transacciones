@@ -1,0 +1,25 @@
+//Modulo encargado de organizar el archivo de transacciones
+
+Procedure transacciones(ced:Integer;Var list_us:usuarios;posc:Integer);
+Var
+  i: Integer;
+Begin
+  i := 1;
+  Repeat
+    If (list_us[posc].movimientos[i].tipo='Transferencia')Then
+      Begin
+        Writeln('N°',i,' |  Tipo de transacción:',list_us[posc].movimientos[i].tipo);
+        Writeln('    |  receptor:',list_us[posc].movimientos[i].receptor);
+        Writeln('    |  Valor:',list_us[posc].movimientos[i].valor:0:2,
+                '-------------------------------------------------');
+      End
+    Else
+      Begin
+        Writeln('N°',i,' |  Tipo de transacción:',list_us[posc].movimientos[i].tipo);
+        Writeln('    |  Valor:',list_us[posc].movimientos[i].valor:0:2,
+                '-------------------------------------------------');
+      End;
+    i := i+1;
+  Until ((i=movs)Or(list_us[posc].movimientos[i].valor=0));
+  Readkey;
+End;
