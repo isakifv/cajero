@@ -1,0 +1,24 @@
+//Este es el menú principal a partir del cual se utilizan las distintas funcionalidades.
+
+Procedure menu_p(op:Integer; Var list_us:usuarios);
+Var
+  i,j: Integer;
+Begin
+  Repeat
+    Clrscr;
+    Writeln('---------------------------------------------------------------');
+    Writeln('                     Menu principal:');
+    Writeln('1-. Registrar usuario nuevo.');
+    Writeln('2-. Iniciar cuenta existente.');
+    Writeln('3-. Cerrar programa.');
+    Readln(op);
+    Case op Of
+      1: reg_us(list_us);
+      2: inic_us(list_us);
+      3: Writeln('---------------------- Cerrando programa ----------------------');
+      Else
+        Writeln('Valor inválido. Presiona enter.');
+      Readkey;
+    End;
+  Until (op=3);
+End;
