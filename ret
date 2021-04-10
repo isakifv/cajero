@@ -1,0 +1,81 @@
+//Modulo encargado de los retiros
+
+Procedure ret (ced:Integer; Var list_us:usuarios; posc:Integer);
+Var
+  valid: Boolean;
+  valor: Integer;
+  movimiento: mov;
+  op: Integer;
+Begin
+  If ((list_us[posc].saldo<>0)And(list_us[posc].saldo>1000)) Then
+    Begin
+      Writeln('Introduzca el valor de su retiro. Opciones:');
+      Writeln('1-. Retiro de 1.000bsf.');
+      Writeln('1-. Retiro de 2.000bsf.');
+      Writeln('1-. Retiro de 10.000bsf.');
+      Writeln('1-. Retiro de 20.000bsf.');
+      Writeln('1-. Retiro de 50.000bsf.');
+      Writeln('Saldo de la cuenta:',list_us[posc].saldo:0:2,'Bs.f');
+      Repeat
+        Readln(op);
+        Case op Of
+          1:
+             Begin
+               Writeln('Realizando retiro de 1.000bs.');
+               valor := 1000;
+             End;
+          2:
+             Begin
+               Writeln('Realizando retiro de 2.000bs.');
+               valor := 2000;
+             End;
+          3:
+             Begin
+               Writeln('Realizando retiro de 10.000bs.');
+               valor := 10000;
+             End;
+          4:
+             Begin
+               Writeln('Realizando retiro de 20.000bs.');
+               valor := 20000;
+             End;
+          5:
+             Begin
+               Writeln('Realizando retiro de 50.000bs.');
+               valor := 50000;
+             End
+             Else
+               Writeln('Opción inválida.');
+        End;
+        If (Not valor<=list_us[posc].saldo)Then Writeln(
+
+                                  'El valor que intenta retirar es mayor al existente en su cuenta.'
+          );
+      Until (((op>0) And (op<5))And(valor<=list_us[posc].saldo));
+      Readln;
+      movimiento.tipo := 'Retiro';
+      movimiento.valor := valor;
+      list_us[posc].cant_mov := (list_us[posc].cant_mov + 1);
+      list_us[posc].movimientos[list_us[posc].cant_mov] := movimiento;
+      list_us[posc].saldo := list_us[posc].saldo - valor;
+      Writeln('Retiro realizado exitosamente.');
+      Writeln('Saldo de la cuenta:',list_us[posc].saldo:0:2,'Bs.f');
+    End
+  Else
+    Begin
+      If (list_us[posc].saldo<1000)Then Writeln(
+
+                           'No tiene el saldo suficiente para realizar el retiro mínimo (1.000bs).'
+        )
+      Else Writeln('La cuenta seleccionada no tiene saldo alguno para ser retirado o transferido.');
+      Writeln(
+
+'--------------------------------------------------------------------------------------------------'
+      );
+      Exit;
+    End;
+  Writeln(
+
+'--------------------------------------------------------------------------------------------------'
+  );
+End;
